@@ -27,7 +27,12 @@ export default function App() {
 
   const [player, setPlayer] = React.useState('X');
 
-  let str1 = ''
+  const [OW, setOW] = React.useState(false)
+  const [XW, setXW] = React.useState(false)
+
+  React.useEffect(() => {
+    renderWinner()
+  }, [OW, XW])
 
   const renderHeader = () => {
     return (
@@ -39,7 +44,7 @@ export default function App() {
           justifyContent: 'center',
           backgroundColor: 'blue',
           borderRadius: 25,
-          marginBottom: 25,
+          marginBottom: 15,
         }}
       >
         <Text style={{color: 'white', fontSize: 32, fontWeight: 'bold'}}>
@@ -51,7 +56,8 @@ export default function App() {
 
   const renderPlaceholder = (num, stateVar, filledVar) => {
     return (
-      <View style={{ margin: 10 }}>
+      
+      <View style={{ margin: 0 }}>
         {player === 'X' ? (
           <TouchableOpacity
             onPress={() => {
@@ -125,39 +131,39 @@ export default function App() {
     if (!filledVar) {
       switch (num) {
         case 1:
-          setTest1(test1 === 'X' ? 'O' : 'X');
+          setTest1(player === 'X' ? 'O' : 'X');
           setFilled1(true);
           break;
         case 2:
-          setTest2(test2 === 'X' ? 'O' : 'X');
+          setTest2(player === 'X' ? 'O' : 'X');
           setFilled2(true);
           break;
         case 3:
-          setTest3(test3 === 'X' ? 'O' : 'X');
+          setTest3(player === 'X' ? 'O' : 'X');
           setFilled3(true);
           break;
         case 4:
-          setTest4(test4 === 'X' ? 'O' : 'X');
+          setTest4(player === 'X' ? 'O' : 'X');
           setFilled4(true);
           break;
         case 5:
-          setTest5(test5 === 'X' ? 'O' : 'X');
+          setTest5(player === 'X' ? 'O' : 'X');
           setFilled5(true);
           break;
         case 6:
-          setTest6(test6 === 'X' ? 'O' : 'X');
+          setTest6(player === 'X' ? 'O' : 'X');
           setFilled6(true);
           break;
         case 7:
-          setTest7(test7 === 'X' ? 'O' : 'X');
+          setTest7(player === 'X' ? 'O' : 'X');
           setFilled7(true);
           break;
         case 8:
-          setTest8(test8 === 'X' ? 'O' : 'X');
+          setTest8(player === 'X' ? 'O' : 'X');
           setFilled8(true);
           break;
         case 9:
-          setTest9(test9 === 'X' ? 'O' : 'X');
+          setTest9(player === 'X' ? 'O' : 'X');
           setFilled9(true);
           break;
         default:
@@ -173,8 +179,69 @@ export default function App() {
     console.log(fetchAllPlaceValues())
   }
 
+  const renderWinner = () => {
+    return (
+      <View
+        style={{
+          height: 60,
+          width: 240,
+          backgroundColor: 'blue',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 25,
+          margin: 10
+        }}
+      >
+        {
+          (!OW && !XW) && (
+            <Text style={{color: 'white', fontSize: 32, fontWeight: 'bold'}}>Match Going On</Text>
+          )
+        }
+        {
+          OW && (
+            <Text style={{color: 'white', fontSize: 32, fontWeight: 'bold'}}>O won</Text>
+          )
+        }
+        {
+          XW && (
+            <Text style={{color: 'white', fontSize: 32, fontWeight: 'bold'}}>X won</Text>
+          )
+        }
+      </View>
+    )
+  }
+
   const fetchAllPlaceValues = () => {
-    str1 = test1 + ' ' + test2 + ' ' + test3 + '\n' + test4 + ' ' + test5 + ' ' + test6 + '\n' + test7 + ' ' + test8 + ' ' + test9
+    
+    var x1 = (test1 === 'X') && (test2 === 'X') && (test3 === 'X')
+    var x2 = (test4 === 'X') && (test5 === 'X') && (test6 === 'X')
+    var x3 = (test7 === 'X') && (test8 === 'X') && (test9 === 'X')
+
+    var x4 = (test1 === 'X') && (test4 === 'X') && (test7 === 'X')
+    var x5 = (test2 === 'X') && (test5 === 'X') && (test8 === 'X')
+    var x6 = (test3 === 'X') && (test6 === 'X') && (test9 === 'X')
+
+    var x7 = (test1 === 'X') && (test5 === 'X') && (test9 === 'X')
+    var x8 = (test3 === 'X') && (test5 === 'X') && (test7 === 'X')
+
+    var XWDemo = x1 || x2 || x3 || x4 || x5 || x6 || x7 || x8
+
+    var o1 = (test1 === 'O') && (test2 === 'O') && (test3 === 'O')
+    var o2 = (test4 === 'O') && (test5 === 'O') && (test6 === 'O')
+    var o3 = (test7 === 'O') && (test8 === 'O') && (test9 === 'O')
+
+    var o4 = (test1 === 'O') && (test4 === 'O') && (test7 === 'O')
+    var o5 = (test2 === 'O') && (test5 === 'O') && (test8 === 'O')
+    var o6 = (test3 === 'O') && (test6 === 'O') && (test9 === 'O')
+
+    var o7 = (test1 === 'O') && (test5 === 'O') && (test9 === 'O')
+    var o8 = (test3 === 'O') && (test5 === 'O') && (test7 === 'O')
+
+    var OWDemo = o1 || o2 || o3 || o4 || o5 || o6 || o7 || o8
+    setOW(OWDemo)
+    setXW(XWDemo)
+
+    var str1 = test1 + ' ' + test2 + ' ' + test3 + '\n' + test4 + ' ' + test5 + ' ' + test6 + '\n' + test7 + ' ' + test8 + ' ' + test9 + '\n' + 'X: ' + XWDemo + '\n' + 'O: ' + OWDemo
     return str1
   }
 
@@ -188,7 +255,7 @@ export default function App() {
           justifyContent: 'center',
           backgroundColor: 'blue',
           borderRadius: 25,
-          marginVertical: 25,
+          // marginVertical: 25,
         }}
         onPress={() => {
           resetAllState();
@@ -257,6 +324,8 @@ export default function App() {
           <View>{renderPlaceholder(9, test9, filled9)}</View>
         </View>
       </View>
+
+      {renderWinner()}
 
       {/* Reset Button */}
       {renderResetButton()}
